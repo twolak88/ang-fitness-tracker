@@ -1,5 +1,10 @@
 <section class="signup-form">
-  <form fxLayout="column" fxLayoutAlign="center center" #signupForm="ngForm" (ngSubmit)="onSubmit(signupForm)">
+  <form
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="10px"
+    #signupForm="ngForm"
+    (ngSubmit)="onSubmit(signupForm)">
     <mat-form-field>
       <input
         type="email"
@@ -47,6 +52,6 @@
       #agree="ngModel"
       color="primary">Agree to Terms of service. *</mat-checkbox>
     <mat-error style="font-size: 12px;" *ngIf="agree.touched && agree.hasError('required')">Terms of service agreement is required.</mat-error>
-    <button type="submit" mat-raised-button color="primary">Submit</button>
+    <button type="submit" mat-raised-button color="primary" [disabled]="signupForm.invalid">Submit</button>
   </form>
 </section>
