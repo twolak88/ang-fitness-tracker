@@ -3,30 +3,32 @@
     fxLayout="column"
     fxLayoutAlign="center center"
     fxLayoutGap="10px"
-    #loginForm="ngForm"
-    (ngSubmit)=onSubmit(loginForm)>
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()">
     <mat-form-field>
       <input
         type="email"
         matInput
         placeholder="Your email"
-        ngModel name="email"
-        email
-        required
-        #emailInput="ngModel"/>
-      <mat-error *ngIf="emailInput.hasError('required')">Email is required.</mat-error>
-      <mat-error *ngIf="emailInput.hasError('email')">Email is invalid.</mat-error>
+        formControlName="email"/>
+      <mat-hint>Please enter a valid email.</mat-hint>
+      <mat-error *ngIf="!loginForm.get('email').valid
+        && loginForm.get('email').touched
+        && loginForm.get('email').errors['required']">Email is required.</mat-error>
+      <mat-error *ngIf="!loginForm.get('email').valid
+        && loginForm.get('email').touched
+        && loginForm.get('email').errors['email']">Email is invalid.</mat-error>
     </mat-form-field>
     <mat-form-field>
       <input
         type="password"
         matInput
         placeholder="Your password"
-        ngModel
-        name="password"
-        required
-        #pwInput="ngModel"/>
-      <mat-error *ngIf="pwInput.hasError('required')">Password is required.</mat-error>
+        formControlName="password"/>
+      <mat-hint>Please enter your password.</mat-hint>
+      <mat-error *ngIf="!loginForm.get('password').valid
+        && loginForm.get('password').touched
+        && loginForm.get('password').errors['required']">Password is required.</mat-error>
     </mat-form-field>
     <button type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">Submit</button>
   </form>
