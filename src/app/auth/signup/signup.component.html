@@ -31,10 +31,22 @@
         matInput
         placeholder="Your birthday"
         [matDatepicker]="picker"
-        [max]="maxDate"/>
+        [max]="maxDate"
+        ngModel
+        name="birthdate"
+        #birthdate="ngModel"
+        required/>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="birthdate.hasError('required')">Birthdate is required.</mat-error>
     </mat-form-field>
+    <mat-checkbox
+      ngModel
+      name="agree"
+      required
+      #agree="ngModel"
+      color="primary">Agree to Terms of service. *</mat-checkbox>
+    <mat-error style="font-size: 12px;" *ngIf="agree.touched && agree.hasError('required')">Terms of service agreement is required.</mat-error>
     <button type="submit" mat-raised-button color="primary">Submit</button>
   </form>
 </section>
