@@ -27,21 +27,21 @@ export class CurrentTrainingComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this.trainingExit.emit();
       } else {
         this.startOrResumeTimer();
       }
-    })
+    });
   }
 
   startOrResumeTimer() {
     this.timer = window.setInterval(() => {
       this.progress = this.progress + 5;
-      if(this.progress >= 100) {
+      if (this.progress >= 100) {
         clearInterval(this.timer);
       }
-    }, 1000)
+    }, 1000);
   }
 
 }
