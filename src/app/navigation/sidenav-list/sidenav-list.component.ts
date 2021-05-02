@@ -24,7 +24,7 @@ export class SidenavListComponent implements OnInit, OnDestroy {
     this.authSubscription.unsubscribe();
   }
 
-  onCloseSidenav() {
+  onCloseSidenav(): void {
     this.closeSidenav.emit();
   }
 

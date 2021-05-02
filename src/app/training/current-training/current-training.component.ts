@@ -18,7 +18,7 @@ export class CurrentTrainingComponent implements OnInit {
     this.startOrResumeTimer();
   }
 
-  onStop() {
+  onStop(): void {
     clearInterval(this.timer);
     const dialogRef = this.dialog.open(StopTrainingComponent, {
       data: {
@@ -35,7 +35,7 @@ export class CurrentTrainingComponent implements OnInit {
     });
   }
 
-  startOrResumeTimer() {
+  private startOrResumeTimer(): void {
     this.timer = window.setInterval(() => {
       this.progress = this.progress + 5;
       if (this.progress >= 100) {

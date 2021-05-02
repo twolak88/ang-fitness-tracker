@@ -13,7 +13,7 @@ export class NewTrainingComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onStartTraining() {
+  onStartTraining(): void {
     this.trainingStart.emit();
   }
 
