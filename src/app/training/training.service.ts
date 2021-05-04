@@ -13,28 +13,30 @@ export class TrainingService {
   exercisesChanged = new Subject<Exercise[]>();
   onGoingExerciseChange = new Subject<Exercise>();
   historicalExercisesChanged = new Subject<Exercise[]>();
-  private dbSubscriptions: Subscription = new Subscription();
+  private dbSubscriptions: Subscription;
 
   constructor(private db: AngularFirestore) {}
 
   fetchAvailableExercises(): void {
-    this.dbSubscriptions.add(this.db
-      .collection('availableExercises')
-      .snapshotChanges()
-      .pipe(
-        map((docArray) => {
-          return docArray.map((doc) => {
-            return {
-              id: doc.payload.doc.id,
-              ...(doc.payload.doc.data() as Exercise),
-            };
-          });
+    this.dbSubscriptions.add(
+      this.db
+        .collection('availableExercises')
+        .snapshotChanges()
+        .pipe(
+          map((docArray) => {
+            return docArray.map((doc) => {
+              return {
+                id: doc.payload.doc.id,
+                ...(doc.payload.doc.data() as Exercise),
+              };
+            });
+          })
+        )
+        .subscribe((exercises: Exercise[]) => {
+          this.availableExercises = exercises;
+          this.exercisesChanged.next([...this.availableExercises]);
         })
-      )
-      .subscribe((exercises: Exercise[]) => {
-        this.availableExercises = exercises;
-        this.exercisesChanged.next([...this.availableExercises]);
-      }));
+    );
   }
 
   startExercise(selectedId: string): void {
@@ -72,16 +74,24 @@ export class TrainingService {
   }
 
   fetchHistoricalExercises(): void {
-    this.dbSubscriptions.add(this.db
-      .collection('finishedExercises')
-      .valueChanges()
-      .subscribe((exercises: Exercise[]) => {
-        this.historicalExercisesChanged.next(exercises);
-      }));
+    this.dbSubscriptions.add(
+      this.db
+        .collection('finishedExercises')
+        .valueChanges()
+        .subscribe((exercises: Exercise[]) => {
+          this.historicalExercisesChanged.next(exercises);
+        })
+    );
+  }
+
+  initSubscriptions(): void {
+    this.dbSubscriptions = new Subscription();
   }
 
   cancelSubscriptions(): void {
-    this.dbSubscriptions.unsubscribe();
+    if (this.dbSubscriptions) {
+      this.dbSubscriptions.unsubscribe();
+    }
   }
 
   private pushExercisesToDatabase(exercise: Exercise): void {
