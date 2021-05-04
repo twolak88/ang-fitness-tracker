@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthData } from './auth-data.model';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { TrainingService } from '../training/training.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class AuthService {
   private isAuthenticated = false;
 
   constructor(private router: Router,
-              private afAuth: AngularFireAuth) { }
+              private afAuth: AngularFireAuth,
+              private trainingService: TrainingService) { }
 
   registerUser(authData: AuthData): void {
     this.afAuth
@@ -33,6 +35,7 @@ export class AuthService {
   }
 
   logout(): void {
+    this.trainingService.cancelSubscriptions();
     this.afAuth.signOut();
     this.isAuthenticated = false;
     this.authChange.next(this.isAuthenticated);
