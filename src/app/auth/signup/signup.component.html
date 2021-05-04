@@ -52,6 +52,12 @@
       #agree="ngModel"
       color="primary">Agree to Terms of service. *</mat-checkbox>
     <mat-error style="font-size: 12px;" *ngIf="agree.touched && agree.hasError('required')">Terms of service agreement is required.</mat-error>
-    <button type="submit" mat-raised-button color="primary" [disabled]="signupForm.invalid">Submit</button>
+    <button
+      type="submit"
+      mat-raised-button
+      color="primary"
+      [disabled]="signupForm.invalid"
+      *ngIf="!isLoading">Submit</button>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
   </form>
 </section>
