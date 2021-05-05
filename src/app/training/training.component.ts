@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TrainingService } from './training.service';
-import { Exercise } from './exercise.model';
 
 @Component({
   selector: 'app-training',
@@ -21,7 +20,8 @@ export class TrainingComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.onGoingExerciseChangeSub.unsubscribe();
+    if (this.onGoingExerciseChangeSub) {
+      this.onGoingExerciseChangeSub.unsubscribe();
+    }
   }
-
 }
