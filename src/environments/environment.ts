@@ -12,7 +12,7 @@ export const environment = {
     messagingSenderId: '569813053678',
     appId: '1:569813053678:web:d7ded8167806691236c3ff',
     // databaseURL: 'https://ng-fitness-tracker-27a28.firebaseio.com',
-  },
+  }
 };
 
 /*
