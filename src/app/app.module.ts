@@ -10,8 +10,8 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AuthModule } from './auth/auth.module';
-import { TrainingModule } from './training/training.module';
-import { SharedModule } from './shared/shared.module';
+import { MaterialModule } from './material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -23,11 +23,11 @@ import { SharedModule } from './shared/shared.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MaterialModule,
+    FlexLayoutModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AuthModule,
-    TrainingModule,
-    SharedModule
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent],
