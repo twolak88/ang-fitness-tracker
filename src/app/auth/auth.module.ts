@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
-import { MaterialModule } from '../material.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -15,12 +13,9 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     LoginComponent,
   ],
   imports: [
-    CommonModule,
-    FormsModule,
     ReactiveFormsModule,
-    MaterialModule,
-    FlexLayoutModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    SharedModule
   ],
   exports: []
 })
