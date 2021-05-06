@@ -4,6 +4,9 @@ import { map } from 'rxjs/operators';
 import { Exercise } from './exercise.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { UiService } from '../shared/ui.service';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../app.reducer';
+import * as UI from '../shared/ui.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -18,11 +21,12 @@ export class TrainingService {
 
   constructor(
     private db: AngularFirestore,
-    private uiService: UiService
+    private uiService: UiService,
+    private store: Store<fromRoot.State>
   ) { }
 
   fetchAvailableExercises(): void {
-    this.uiService.loadingStateChanged.next(true);
+    this.store.dispatch(new UI.StartLoading());
     this.dbSubscriptions.add(
       this.db
         .collection('availableExercises')
@@ -39,9 +43,9 @@ export class TrainingService {
         ).subscribe((exercises: Exercise[]) => {
           this.availableExercises = exercises;
           this.exercisesChanged.next([...this.availableExercises]);
-          this.uiService.loadingStateChanged.next(false);
+          this.store.dispatch(new UI.StopLoading());
         }, error => {
-          this.uiService.loadingStateChanged.next(false);
+          this.store.dispatch(new UI.StopLoading());
           this.uiService.showSnackbarError('Fetching Exercises failed, please try again later', null, 5000);
           this.exercisesChanged.next(null);
         })
