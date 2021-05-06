@@ -12,6 +12,8 @@ import { environment } from '../environments/environment';
 import { AuthModule } from './auth/auth.module';
 import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './app.reducer';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FlexLayoutModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AuthModule
+    AuthModule,
+    StoreModule.forRoot(reducers)
   ],
   providers: [],
   bootstrap: [AppComponent],
