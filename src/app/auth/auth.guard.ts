@@ -9,9 +9,7 @@ import * as fromRoot from '../app.reducer';
 })
 export class AuthGuard implements CanActivate, CanLoad {
 
-  constructor(
-    private store: Store<fromRoot.State>
-  ) { }
+  constructor(private store: Store<fromRoot.State>) { }
 
   canLoad(route: Route, segments: UrlSegment[]): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     return this.checkUserIsAuth();
